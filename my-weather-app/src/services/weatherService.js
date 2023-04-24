@@ -11,38 +11,34 @@ const getWeatherData = (infoType, searchParams) => {
     return fetch(url).then((res) => res.json());
 };
 
-const formatCurrentWeather = (data, timezone = "UTC") => {
+const formatCurrentWeather = (data, timezone = "GMT") => {
     const {
         coord: { lat, lon },
-        main: { temp, feels_like, temp_min, temp_max, humidity },
+        main: { temp, feels_like, humidity },
         name,
         dt,
-        sys: { country, sunrise, sunset },
+        sys: {country},
         weather,
         wind: { speed },
     } = data;
 
     const { main: details, icon } = weather[0];
 
-    const localTime = formatToLocalTime(dt, timezone);
+    const CountryLocalTime = formatToLocalTime(dt, timezone);
 
     return {
         lat,
         lon,
         temp,
         feels_like,
-        temp_min,
-        temp_max,
         humidity,
         name,
         dt,
         country,
-        sunrise,
-        sunset,
         details,
         icon,
         speed,
-        localTime,
+       CountryLocalTime,
     };
 };
 
@@ -61,30 +57,39 @@ const getFormattedWeatherData = async (searchParams) => {
         units: searchParams.units,
     });
 
-    const forecast = Array.isArray(formattedForecastWeather) ? formattedForecastWeather.map((weatherData) => {
+    console.log("formattedForecastWeather: ", formattedForecastWeather);
+
+    const forecast = [];
+    for (let key in formattedForecastWeather.list) {
+        const weatherData = formattedForecastWeather.list[key];
         const {
             dt,
-            main: { temp, temp_min, temp_max },
+            main: { temp },
             weather,
             wind: { speed },
         } = weatherData;
 
         const { icon } = weather[0];
 
-        const localTime = formatToLocalTime(dt, formattedForecastWeather.city.timezone);
+        const CountryLocalTime = formatToLocalTime(
+            dt,
+            formattedForecastWeather.city.timezone
+        );
 
-        return {
+        const forecastData = {
             dt,
             temp,
-            temp_min,
-            temp_max,
             icon,
             speed,
-            localTime,
+            CountryLocalTime,
         };
-    }): [];
 
-    return {...formattedCurrentWeather, forecast};
+        forecast.push(forecastData);
+    }
+
+    console.log("forecast: ", forecast);
+
+    return { ...formattedCurrentWeather, forecast };
 };
 
 const getThreeHourlyForecast = async (searchParams) => {

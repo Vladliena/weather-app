@@ -15,34 +15,6 @@ function Forecast ({title}) {
                                 <img src={icon} alt='icon' className='w-12 my-1'/>
                                 <p className='font-medium'>22°</p>
                         </div>
-                        <div className='flex flex-col items-center justify-center'>
-                                <p className='font-light text-sm'>
-                                        04:30 PM
-                                </p>
-                                <img src={icon} alt='icon' className='w-12 my-1'/>
-                                <p className='font-medium'>22°</p>
-                        </div>
-                        <div className='flex flex-col items-center justify-center'>
-                                <p className='font-light text-sm'>
-                                        04:30 PM
-                                </p>
-                                <img src={icon} alt='icon' className='w-12 my-1'/>
-                                <p className='font-medium'>22°</p>
-                        </div>
-                        <div className='flex flex-col items-center justify-center'>
-                                <p className='font-light text-sm'>
-                                        04:30 PM
-                                </p>
-                                <img src={icon} alt='icon' className='w-12 my-1'/>
-                                <p className='font-medium'>22°</p>
-                        </div>
-                        <div className='flex flex-col items-center justify-center'>
-                                <p className='font-light text-sm'>
-                                        04:30 PM
-                                </p>
-                                <img src={icon} alt='icon' className='w-12 my-1'/>
-                                <p className='font-medium'>22°</p>
-                        </div>
                 </div>
         </div>
 }
